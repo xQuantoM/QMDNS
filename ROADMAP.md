@@ -12,8 +12,10 @@ This document outlines the roadmap for evolving the DNS Speed Test tool into a p
 - [x] **Implement Optional Warm-up Queries:** Add a flag (`--warmup-queries`) to send untimed requests before measurement to get more stable and realistic timing results.
 - [x] **Add DNSSEC Validation Check:** Test if servers support DNSSEC, adding a critical security dimension to the results.
 - [x] **Reliability-First Ranking**: Servers are now ranked based on their success rate first, then by speed.
-- [ ] **Add Geo-Location Data:** Include an option to look up the physical location of servers to provide context for latency results.
+- [x] **Use `time.perf_counter()` for Timing**: Use a monotonic clock for accurate measurements.
+- [x] **Add TCP Fallback for DNSSEC**: Make DNSSEC checks more reliable.
 - [x] **Stricter Input Validation:** Pre-validate all server IPs and domain names to prevent errors during a long test run.
+- [ ] **Add Geo-Location Data:** Include an option to look up the physical location of servers to provide context for latency results.
 - [ ] **Advanced Health Checks:** Implement checks for issues like DNS hijacking or poisoning to ensure servers are returning correct results.
 
 ---
@@ -26,9 +28,12 @@ This document outlines the roadmap for evolving the DNS Speed Test tool into a p
 - [x] **Quick Test Mode**: Use the `--quick` flag to test only the major, trusted DNS providers.
 - [x] **Simple & Detailed Output**: Choose between a simple, one-line recommendation (`--simple`) or a detailed comparison table.
 - [x] **Interactive Progress Bar:** Replace per-server print statements with a clean, real-time progress bar.
+- [x] **Terminal-Aware Progress Bar**: Make the progress bar robust to terminal resizing.
+- [x] **Handle `KeyboardInterrupt` (Ctrl+C)**: Ensure the script exits gracefully.
+- [x] **Fix Table Alignment**: Correctly align columns, even with ANSI color codes.
+- [x] **More Granular Error Reporting:** Expand the output table to show counts for each specific error type (NoAnswer, Refused, etc.), not just Timeouts.
 - [ ] **Graphical Chart Output:** Add an option to generate a bar chart of the results, either saved to a file (`matplotlib`) or rendered in the terminal (`plotext`).
 - [ ] **Configuration File Support:** Allow users to specify all options in a config file (e.g., `config.yaml`) for easy, repeatable test runs.
-- [x] **More Granular Error Reporting:** Expand the output table to show counts for each specific error type (NoAnswer, Refused, etc.), not just Timeouts.
 
 ---
 
@@ -45,6 +50,8 @@ This document outlines the roadmap for evolving the DNS Speed Test tool into a p
 
 *A perfect tool is robust, maintainable, and easily accessible to everyone.*
 
+- [x] **Use `ipaddress` Module for Validation**: Use the standard library for robust IPv4 validation.
+- [x] **Use `parser.error()` for Argument Validation**: Improve command-line argument handling.
 - [ ] **Full Unit Test Coverage:** Create a comprehensive test suite to guarantee that future changes do not break existing functionality.
 - [ ] **Package for PyPI (`pip`):** Package the script so it can be easily installed worldwide with `pip install dns-speed-test`.
 - [ ] **Automated Linting & Formatting:** Set up tools to enforce a consistent, high-quality code style across the project.
